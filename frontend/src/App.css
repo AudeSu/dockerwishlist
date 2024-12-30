@@ -33,6 +33,9 @@
 }
 
 .item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding: 10px;
   background-color: #f4f4f4;
   border-bottom: 1px solid #ddd;
@@ -41,4 +44,21 @@
   max-width: 300px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.item span {
+  flex-grow: 1;
+  text-align: left;
+}
+
+.delete-button {
+  background: none;
+  border: none;
+  color: #ff4d4d;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+.delete-button:hover {
+  color: #ff1a1a;
 }

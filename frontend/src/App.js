@@ -1,39 +1,55 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './App.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 const App = () => {
-  const [items, setItems] = useState([]);
-  const [input, setInput] = useState("");
+    const [items, setItems] = useState([]);
+    const [newItem, setNewItem] = useState('');
 
-  const addItem = () => {
-    if (input.trim()) {
-      setItems([...items, input]);
-      setInput("");
-    }
-  };
+    useEffect(() => {
+        axios.get('http://localhost:5000/api/wishlist').then((res) => setItems(res.data));
+    }, []);
 
-  return (
-    <div className="app-container">
-      <h1 className="title">Wishlist</h1>
-      <input
-        type="text"
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-        placeholder="Voeg een item toe"
-        className="input-field"
-      />
-      <button onClick={addItem} className="add-button">
-        Toevoegen
-      </button>
-      <ul className="item-list">
-        {items.map((item, index) => (
-          <li key={index} className="item">
-            {item}
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
+    const addItem = () => {
+        axios
+            .post('http://localhost:5000/api/wishlist', { item: newItem.trim() })
+            .then((res) => setItems([...items, res.data]));
+        setNewItem('');
+    };
+
+    const deleteItem = (id) => {
+        axios.delete(`http://localhost:5000/api/wishlist/${id}`).then(() => {
+            setItems(items.filter((item) => item._id !== id));
+        });
+    };
+
+    return (
+        <div className='app-container'>
+            <h1 className='title'>My Wishlist</h1>
+            <input
+                type='text'
+                value={newItem}
+                onChange={(e) => setNewItem(e.target.value)}
+                placeholder='Voeg een item toe'
+                className='input-field'
+            />
+            <button onClick={addItem} className='add-button'>
+                Toevoegen
+            </button>
+            <ul className='item-list'>
+                {items.map((item) => (
+                    <li key={item._id} className='item'>
+                        <span>{item.item}</span>
+                        <button onClick={() => deleteItem(item._id)} className='delete-button'>
+                            <FontAwesomeIcon icon={faTrash} />
+                        </button>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    );
 };
 
 export default App;
