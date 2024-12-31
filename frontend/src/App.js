@@ -9,18 +9,20 @@ const App = () => {
     const [newItem, setNewItem] = useState('');
 
     useEffect(() => {
-        axios.get('http://localhost:5000/api/wishlist').then((res) => setItems(res.data));
+        axios
+            .get(`${process.env.REACT_APP_BACKEND_URL}/api/wishlist`)
+            .then((res) => setItems(res.data));
     }, []);
 
     const addItem = () => {
         axios
-            .post('http://localhost:5000/api/wishlist', { item: newItem.trim() })
+            .post(`${process.env.REACT_APP_BACKEND_URL}/api/wishlist`, { item: newItem.trim() })
             .then((res) => setItems([...items, res.data]));
         setNewItem('');
     };
 
     const deleteItem = (id) => {
-        axios.delete(`http://localhost:5000/api/wishlist/${id}`).then(() => {
+        axios.delete(`${process.env.REACT_APP_BACKEND_URL}/api/wishlist/${id}`).then(() => {
             setItems(items.filter((item) => item._id !== id));
         });
     };
