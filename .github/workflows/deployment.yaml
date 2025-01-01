@@ -26,8 +26,12 @@ jobs:
           location: europe-west1-c
 
       - name: Build the Docker images
+        env:
+          DOCKER_USERNAME: audesu
+          DOCKER_TOKEN: ${{ secrets.DOCKERHUBKEY }}
         run: |
-          docker rmi audesu/frontend:dev
+          curl -X DELETE -u "$DOCKER_USERNAME:$DOCKER_TOKEN" \
+          "https://hub.docker.com/v2/repositories/audesu/frontend/tags/dev/"
           docker build --build-arg REACT_APP_BACKEND_URL=http://34.76.13.160:5000 -t audesu/frontend:dev ./frontend
           docker build -t audesu/backend:latest ./backend
 

@@ -31,7 +31,7 @@ const App = () => {
     return (
         <div className='app-container'>
             <h1 className='title'>My Wishlist</h1>
-            <h2 className='title'>CI/CD werkt op development</h2>
+            <h2 className='title'>CI/CD werkt op development!</h2>
             <input
                 type='text'
                 value={newItem}
