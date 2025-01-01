@@ -33,7 +33,7 @@ jobs:
 
       - name: Push images to DockerHub
         run: |
-          docker login -u audesu -p ${{ secrets.DOCKERHUB }}
+          docker login -u audesu -p ${{ secrets.DOCKERHUBKEY }}
           docker push audesu/frontend:dev
           docker push audesu/backend:latest
 
