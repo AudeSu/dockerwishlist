@@ -1,0 +1,6 @@
+apiVersion: v2
+name: my-app
+description: frontend die react gebruikt en backend die node gebruiken me mongodb
+type: application
+version: 1.0.0
+appVersion: 1.0.0

@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cloudflared-config
+data:
+  config.yml: |
+    tunnel: {{ .Values.cloudflared.config.tunnel }}
+    credentials-file: {{ .Values.cloudflared.config.credentialsFile }}
+    loglevel: debug
+    
+

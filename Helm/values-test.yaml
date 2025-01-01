@@ -3,6 +3,7 @@ frontend:
   image:
     repository: audesu/frontend
     tag: helmtest
+    # cloud
   env:
     REACT_APP_BACKEND_URL: "http://35.240.35.214:5000"
 

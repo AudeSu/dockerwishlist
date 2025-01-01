@@ -1,0 +1,11 @@
+secrets:
+  cloudflare:
+    TUNNEL_TOKEN: eyJhIjoiOGQxNjA1OTJmOTFhMTlhZjgxZmUzMGUwZTViNDRlMzkiLCJ0IjoiMDRmNmRlZDAtMzBiYi00NzQ2LWI2Y2YtNDU1ZmM4ZmVkOGJhIiwicyI6Ik1qWTNOV1F5TkRBdE5HTTJZeTAwWmpOakxXSmtaVE10TUdJMk4yWTNPVEkwTmpFNCJ9
+cloudflared:
+  image:
+    repository: cloudflare/cloudflared
+    tag: 2024.12.2
+  config:
+      tunnel: 04f6ded0-30bb-4746-b6cf-455fc8fed8ba
+      credentialsFile: /etc/cloudflared/tunnel-credentials.json
+     

@@ -16,7 +16,8 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: audesu/frontend:online
+        image: audesu/frontend:cloudprod
+        # online
         ports:
         - containerPort: 80
         env:
