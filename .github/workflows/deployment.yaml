@@ -27,14 +27,14 @@ jobs:
 
       - name: Build the Docker images
         run: |
-          
-          docker build --build-arg REACT_APP_BACKEND_URL=http://34.76.13.160:5000 -t audesu/frontend:dev2 ./frontend
+          docker rmi audesu/frontend:dev
+          docker build --build-arg REACT_APP_BACKEND_URL=http://34.76.13.160:5000 -t audesu/frontend:dev ./frontend
           docker build -t audesu/backend:latest ./backend
 
       - name: Push images to DockerHub
         run: |
           docker login -u audesu -p ${{ secrets.DOCKERHUBKEY }}
-          docker push audesu/frontend:dev2
+          docker push audesu/frontend:dev
           docker push audesu/backend:latest
 
       - name: Install Helm

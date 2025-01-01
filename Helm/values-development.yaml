@@ -2,7 +2,7 @@ frontend:
   replicaCount: 1
   image:
     repository: audesu/frontend
-    tag: dev2
+    tag: dev
   env:
     REACT_APP_BACKEND_URL: "http://34.76.13.160:5000"
 
