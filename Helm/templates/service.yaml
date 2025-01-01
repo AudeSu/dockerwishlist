@@ -10,7 +10,6 @@ spec:
   ports:
     - port: {{ .Values.frontendService.port }}
       targetPort: {{ .Values.frontendService.targetPort }}
-      nodePort: {{ .Values.frontendService.nodePort }}
 ---
 apiVersion: v1
 kind: Service

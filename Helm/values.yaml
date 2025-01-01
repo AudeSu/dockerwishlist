@@ -1,8 +1,5 @@
 frontend:
   replicaCount: 1
-  image:
-    repository: audesu/frontend
-    tag: latest
   env:
     REACT_APP_BACKEND_URL: "http://backend-service:5000"
 
