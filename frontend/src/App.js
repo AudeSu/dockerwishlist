@@ -9,6 +9,7 @@ const App = () => {
     const [newItem, setNewItem] = useState('');
 
     useEffect(() => {
+        console.log('Backend URL:', process.env.REACT_APP_BACKEND_URL);  
         axios
             .get(`${process.env.REACT_APP_BACKEND_URL}/api/wishlist`)
             .then((res) => setItems(res.data));
