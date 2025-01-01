@@ -1,0 +1,48 @@
+name: CI/CD Pipeline for Kubernetes and Github
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        # Google Cloud Authenticatie
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v1
+        with:
+          credentials_json: ${{ secrets.GOOGLEKEY }}
+        # Google Cloud SDK instellen
+      - name: Set up GKE
+        uses: google-github-actions/get-gke-credentials@v1
+        with:
+          project_id: wishlist-446412
+          cluster_name:	clusteraudesus
+          location: europe-west1-c
+
+      - name: Build the Docker images
+        run: |
+          
+          docker build --build-arg REACT_APP_BACKEND_URL=http://34.76.13.160:5000 -t audesu/frontend:dev ./frontend
+          docker build -t audesu/backend:latest ./backend
+
+      - name: Push images to DockerHub
+        run: |
+          docker login -u audesu -p ${{ secrets.DOCKER_HUB }}
+          docker push audesu/frontend:dev
+          docker push audesu/backend:latest
+
+      - name: Install Helm
+        run: |
+          curl https://get.helm.sh/helm-v3.11.1-linux-amd64.tar.gz -o helm-v3.11.1-linux-amd64.tar.gz
+          tar -zxvf helm-v3.11.1-linux-amd64.tar.gz
+          sudo mv linux-amd64/helm /usr/local/bin/helm
+
+      - name: op development zetten
+        run: |
+          helm upgrade --install wishlist-development ./Helm --namespace development --values ./Helm/values-development.yaml
