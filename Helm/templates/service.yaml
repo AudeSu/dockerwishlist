@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-frontend-service
+spec:
+  type: {{ .Values.frontendService.type }}
+  selector:
+    app: frontend
+    tier: frontend
+  ports:
+    - port: {{ .Values.frontendService.port }}
+      targetPort: {{ .Values.frontendService.targetPort }}
+      nodePort: {{ .Values.frontendService.nodePort }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service  
+spec:
+  type: {{ .Values.backendService.type }}  
+  selector:
+    app: backend
+    tier: backend
+  ports:
+    - port: {{ .Values.backendService.port }}
+      targetPort: {{ .Values.backendService.targetPort }}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-db-service
+spec:
+  type: {{ .Values.dbService.type }}
+  ports:
+    - port: {{ .Values.dbService.port }}
+      targetPort: {{ .Values.dbService.targetPort }}
+  selector:
+    app: db

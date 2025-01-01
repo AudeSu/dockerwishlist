@@ -1,0 +1,21 @@
+frontend:
+  replicaCount: 1
+  env:
+    REACT_APP_BACKEND_URL: "http://development-backend-service:5000"  
+
+backend:
+  replicaCount: 1
+
+db:
+  replicaCount: 1
+  env:
+    MONGO_URI: "mongodb://development-db-service:27017/wishlist" 
+
+frontendService:
+  port: 80
+  targetPort: 80
+
+dbService:
+  type: ClusterIP
+  port: 27017
+  targetPort: 27017

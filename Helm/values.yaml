@@ -1,0 +1,36 @@
+frontend:
+  replicaCount: 1
+  image:
+    repository: audesu/frontend
+    tag: latest
+  env:
+    REACT_APP_BACKEND_URL: "http://backend-service:5000"
+
+backend:
+  replicaCount: 1
+  image:
+    repository: audesu/backend
+    tag: latest
+
+db:
+  replicaCount: 1
+  image:
+    repository: mongo
+    tag: latest
+
+frontendService:
+  type: LoadBalancer
+  port: 80
+  targetPort: 80
+
+backendService:
+  type: LoadBalancer
+  port: 5000
+  targetPort: 5000
+
+dbService:
+  type: ClusterIP
+  port: 27017
+  targetPort: 27017
+
+
